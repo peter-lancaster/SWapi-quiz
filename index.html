@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+    <title>SWapi JavaScript fetch and promises from scratch</title>
+    <link rel="stylesheet" href="index.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Bungee|Bungee+Inline|Saira+Extra+Condensed&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+
+<h1>Star Wars quiz - which characters have the same homeworld?</h1> 
+<span>Try this Star-Wars related quiz!  &ensp; It took hours to create, and is literally seconds of fun!</span>
+<span>Select the Star Wars characters that have the same homeworld.</span>
+<span>You get 5 guesses in total, with your success percentage AND wisdom from Master Yoda given at the end.</span>
+<div id="loadingWaitMessage1">
+<span class="blinkingRed largeBoldText">Please wait - loading character data from <a class="blinkingRed" href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
+</div>
+
+<br/>
+<div class="dropDownContainer" id="dropDownContainer">
+    <div style="width:300px;">
+      <label for="characterSelect1">Select your first character </label>
+      <select class="characterSelect" id="characterSelect1" name="characterSelect1">
+        <option value="0">--Please choose a character--</option>
+      </select>
+    </div>
+
+    <div style="width:300px;">
+      <label for="characterSelect2">Select your second character</label>
+      <select class="characterSelect" id="characterSelect2">
+        <option value="0">--Please choose a character--</option>
+      </select>
+    </div>
+</div>
+
+  <br/>
+  <button class="button" id="checkButton">Click here to see if your guess is correct</button>
+
+
+<button class="button" id="finalRatingButton">Click here to get your final rating</button>
+
+<div id="invalidChoice" class="blinkingGrey">
+  <span>Please choose a valid Star Wars character from BOTH drop-down boxes above</span>
+</div>
+
+<div id="cheatChoice" class="blinkingGrey">
+  <span>Selecting the same character for both is cheating!!! Please change one of your selections</span>
+</div>
+
+<div id="loadingWaitMessage2">
+  <span class="blinkingRed largeBoldText">Please wait - loading homeworld data from <a class="blinkingRed" href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
+</div>
+
+<div id="confirmSelection"">
+  <span>You guessed that </span><span class="characterConfirm1"></span><span> and </span><span class="characterConfirm2"></span><span> had the same homeworld...</span>
+</div>
+
+<div id="giveResult">
+  <span id="dataForTable"><span class="characterConfirm1"></span><span> is from </span><span id="homeWorldName1"></span><span> and </span><span class="characterConfirm2"></span><span> is from </span><span id="homeWorldName2"></span></span>
+  <br/>
+  <span>So in this case, your guess is &ensp; </span>
+  <br/>
+  <span style="color:lightblue; font-size:3.3rem" id="correctOrIncorrect"></span>
+  <br />
+  <span id="numberOfGuessesSoFar">Number of guesses so far : </span><span id="numberOfGuesses"></span>
+  <br/>
+  <span id="guessAgainMessage" class="blinkingRed">Guess again, and then give the button another click</span>
+</div>
+
+
+
+<div id="inviteFinalClick">
+  <span>You've now had all 5 guesses.</span>
+  <br/>
+  <span>Click the button above to receive your final percentage and Master Yoda's wisdom.</span>
+</div>
+
+
+<div id="finalRating">
+  <span>Your final percentage of guesses correct was </span>
+  <br/>
+  <span style="font-size:5.4rem; color:yellow" id="finalPercentage"></span><span style="font-size:5.4rem; color: yellow"> &ensp; %</span>
+  <br/>
+  <span style="font-size:5.4rem; color:lightblue">Yoda says......</span>
+  <br/>
+  <span id="yodaWisdom" style="font-size:5.4rem; color:lightblue">"Very Great Disappointment you are....."</span>
+  <br/>
+  <button id="restartButton" class="button">Click this button to reset and have another go</button>
+  <br/>
+  <br/>
+  <span>All data sourced from <a href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
+  <br/>
+  <span>(they have patreon if you feel like giving them some cash</span>
+</div>
+
+<table id="resultsTable" class="tableContainer">
+  <tr>
+    <th>Guess number</th>
+    <th>Character and their homeworld</th>
+    <th>Same homeworld?</th>
+    <th>Percentage of guesses correct</th>
+  </tr>
+</table>
+
+
+    <script src="index.js"></script>
+</body>
+
