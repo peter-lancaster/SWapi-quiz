@@ -8,31 +8,31 @@
   
 <h1>Star Wars quiz - which characters have the same homeworld?</h1> 
 <span>Try this Star-Wars related quiz!  &ensp; It took hours to create, and is literally seconds of fun!</span>
-<span>Select two Star Wars characters that you think have the same homeworld.You get 5 guesses in total, with your success percentage AND wisdom from Master Yoda given at the end.</span>
+
+<span>Select two Star Wars characters that you think have the same homeworld.</span>
+
+<span>You get 5 guesses in total, with your success percentage AND wisdom from Master Yoda given at the end.</span>
+
 <div id="loadingWaitMessage1">
-<span class="blinkingRed largeBoldText">Please wait - loading character data from <a class="blinkingRed" href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
+<span class="blinkingRed boldText">Please wait - loading character data from <a class="blinkingRed" href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
 </div>
 
 <br/>
 <div class="dropDownContainer" id="dropDownContainer">
-    <div style="width:300px;">
+
       <label for="characterSelect1">Select your first character </label>
       <select class="characterSelect" id="characterSelect1" name="characterSelect1">
         <option value="0">--Please choose a character--</option>
       </select>
-    </div>
 
-    <div style="width:300px;">
       <label for="characterSelect2">Select your second character</label>
       <select class="characterSelect" id="characterSelect2">
         <option value="0">--Please choose a character--</option>
       </select>
-    </div>
+
+    <br/>
+    <button class="button bigFont" id="checkButton">Click here to see if your guess is correct</button>
 </div>
-
-  <br/>
-  <button class="button" id="checkButton">Click here to see if your guess is correct</button>
-
 
 
 
@@ -45,7 +45,7 @@
 </div>
 
 <div id="loadingWaitMessage2">
-  <span class="blinkingRed largeBoldText">Please wait - loading homeworld data from <a class="blinkingRed" href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
+  <span class="blinkingRed boldText">Please wait - loading homeworld data from <a class="blinkingRed" href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
 </div>
 
 <div id="confirmSelection"">
@@ -57,9 +57,11 @@
   <br/>
   <span>So in this case, your guess is &ensp; </span>
   <br/>
-  <span style="color:lightblue; font-size:3.3rem" id="correctOrIncorrect"></span>
+  <span class="bigFont lightBlue" id="correctOrIncorrect"></span>
   <br />
-  <span id="numberOfGuessesSoFar">Number of guesses so far : </span><span id="numberOfGuesses"></span>
+  <div id="numberOfGuessesSoFar">
+  <span>Number of guesses so far : </span><span id="numberOfGuesses"></span>
+  </div>
   <br/>
   <span id="guessAgainMessage" class="blinkingRed">Guess again, and then give the button another click</span>
 </div>
@@ -77,11 +79,15 @@
 <div id="finalRating">
   <span>Your final percentage of guesses correct was </span>
   <br/>
-  <span style="font-size:5.4rem; color:yellow" id="finalPercentage"></span><span style="font-size:5.4rem; color: yellow"> &ensp; %</span>
+  <div class="yellow bigFont">
+    <span  id="finalPercentage"></span><span"> &ensp; %</span>
+  </div>
   <br/>
-  <span style="font-size:5.4rem; color:lightblue">Yoda says......</span>
-  <br/>
-  <span id="yodaWisdom" style="font-size:5.4rem; color:lightblue">"Very Great Disappointment you are....."</span>
+  <div class="lightBlue bigFont">
+    <span >Yoda says......</span>
+    <br/>
+    <span id="yodaWisdom">"Very Great Disappointment you are....."</span>
+  </div>
   <br/>
   <button id="restartButton" class="button">Click this button to reset and have another go</button>
   <br/>
@@ -92,16 +98,16 @@
 </div>
 
 <table id="resultsTable" class="tableContainer">
-  <tr>
     <thead>
-    <th>Guess number</th>
-    <th>Character and their homeworld</th>
-    <th>Same homeworld?</th>
-    <th>Percentage of guesses correct</th>
+      <tr>
+        <th>Guess number</th>
+        <th>Character and their homeworld</th>
+        <th>Same homeworld?</th>
+        <th>Percentage of guesses correct</th>
+      </tr>
   </thead>
-  <tbody id="resultsTableBody">
-  </tbody>
-  </tr>
+    <tbody id="resultsTableBody">
+    </tbody>
 </table>
 
 

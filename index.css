@@ -1,5 +1,6 @@
 html {
-    font-size: 12px;
+    font-size: 26px;
+    line-height: 1.6;
 }
 
 
@@ -11,28 +12,26 @@ body {
     font-family: 'Bungee Inline', cursive;
     */
     text-align: center;
-    font-size: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 h1 {
-    font-size: 4rem;
+    font-size: 2rem;
 }
 
 /* CSS for the table follows ========================*/
 
 .tableContainer {
-
     border: white solid 1px;
-    width: 60%;
+    /*width: 60%;*/
     align-self: center;
 }
 
+
 tr {
     width: 100%;
-
     justify-content: space-evenly;
 }
 
@@ -40,24 +39,24 @@ th, td {
     border: white 1px solid;
     border-collapse: collapse;
 
-
 }
 
 /* CSS for the table ends ============================*/
-
-
+/* CSS for dropdown container and button starts ============================*/
 .dropDownContainer {
     display: flex;
-    justify-content: space-evenly;
+    text-align: center;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
     color: yellow;
+    width:300px;
 }
 
-.hideText {
-    display: none;
-}
+/* CSS for dropdown container and button ends ============================*/
 
-.largeBoldText {
-    font-size: 2rem;
+/* CSS for font size weight and colors starts here ========================*/
+.boldText {
     font-weight: 900;
 }
 
@@ -69,6 +68,27 @@ th, td {
     color: rgb(11, 240, 30);
 }
 
+.lightBlue {
+    color:lightblue; 
+}
+
+.yellow {
+    color:yellow    
+}
+
+
+.bigFont {
+    font-size:2.0rem
+}
+
+.veryBigFont {
+    font-size:3.0rem
+}
+/* CSS for font size weight and colors ends here ========================*/
+
+
+/* CSS for different text elements on the page starts ============================*/
+
 .button {
     background-color: grey;
     color: black;
@@ -78,6 +98,9 @@ th, td {
     font-family: 'Saira Extra Condensed', sans-serif;
     align-self: center;
     border-radius: 4px;}
+
+
+/* CSS for different text elements on the page ends ============================*/
 /*
 Blinking text credit to 
 https://html-online.com/articles/blinking-text-css-animation/

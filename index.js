@@ -1,3 +1,8 @@
+//Version 3 notes:
+//1) Fix for bug where results table stays empty on repeat attempts at quiz.
+//2) Remove inline styling and replace in CSS file.
+//3) Start to make CSS mobile first.
+
 //First get a full list of all Star Wars Characters from https://swapi.co/ 
 //This video will help you A LOT https://www.youtube.com/watch?v=QO4NXhWo_NM
 
@@ -306,8 +311,7 @@ function showGuess (homeWorldName1var, homeWorldName2var) {
 //============================================================================================================================================
 
 function fillTable(homeWorldName1var, homeWorldName2var) {
-
-    
+  
 
     let resultSentence = dataForTableLocation.innerHTML
     let result =""
@@ -327,6 +331,7 @@ function fillTable(homeWorldName1var, homeWorldName2var) {
     resultsTableBodyLocation.innerHTML += newTableEntry;
 
     giveResultLocation.style.display="block";
+    numberOfGuessesSoFarLocation.style.display="block"
     resultsTableLocation.style.display="table";
 
     if(countOfGuesses === 5) {
@@ -338,7 +343,6 @@ function fillTable(homeWorldName1var, homeWorldName2var) {
         guessAgainMessageLocation.style.display="none";
         finalRatingButtonLocation.style.display="block";
         finalRatingButtonLocation.addEventListener("click", displayFinalRating)
-
 
     }
 
@@ -424,6 +428,7 @@ function restartGame() {
     inviteFinalClickLocation.style.display="none";
 
     clearResultsTable()
+    populateCharacterSelect()
     
 }
 
@@ -433,9 +438,12 @@ function restartGame() {
 //============================================================================================================================================
 function clearResultsTable(){
 
-        let emptyTable = document.createElement("tr")
-        resultsTableBodyLocation.replaceWith(emptyTable);
-        populateCharacterSelect();
+    let parent = resultsTableBodyLocation;
+
+    while(parent.hasChildNodes()) {
+        parent.removeChild(parent.firstChild)
+    }
+
 
 }
 
