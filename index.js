@@ -5,6 +5,14 @@
 //============================================================================================================================================
 //START OF CODING TO GET NAME, SPECIES AND HOMEWORLD DATA FROM https://swapi.co/ into our "peopleArray"
 
+
+var countOfGuesses = 0;
+var correctGuesses = 0;
+var percentageCorrect = 0;
+
+
+//Global Variables here
+let peopleArray = [];
 let peopleURL = "https://swapi.co/api/people/"
 /*proxyURL was included to stop this error when trying to get data from SWapi 
 
@@ -18,9 +26,6 @@ https://stackoverflow.com/questions/43262121/trying-to-use-fetch-and-pass-in-mod
 
 */
 let proxyURL = "https://cors-anywhere.herokuapp.com/"
-let peopleArray = [];
-
-//Identify all the page locations where data will be displayed
 
 let loadingWaitMessage1Location = document.getElementById("loadingWaitMessage1");
 let loadingWaitMessage2Location = document.getElementById("loadingWaitMessage2");
@@ -29,14 +34,34 @@ let invalidChoiceLocation = document.getElementById("invalidChoice");
 let confirmSelectionLocation = document.getElementById("confirmSelection");
 let giveResultLocation = document.getElementById("giveResult")
 let resultsTableLocation = document.getElementById("resultsTable")
+let resultsTableBodyLocation = document.getElementById("resultsTableBody")
 let checkButtonLocation = document.getElementById("checkButton")
 let cheatChoiceLocation = document.getElementById("cheatChoice")
 let finalRatingLocation = document.getElementById("finalRating")
 let finalRatingButtonLocation = document.getElementById("finalRatingButton")
 let inviteFinalClickLocation = document.getElementById("inviteFinalClick")
 let restartButtonLocation = document.getElementById("restartButton")
+let characterSelect1 = document.querySelectorAll(".characterSelect")[0];
+let characterSelect2 = document.querySelectorAll(".characterSelect")[1];
+let homeWorldName1 = document.getElementById("homeWorldName1")
+let homeWorldName2 = document.getElementById("homeWorldName2")
+let numberOfGuesses = document.getElementById("numberOfGuesses")
+let characterConfirm1 = document.getElementsByClassName("characterConfirm1");
+let characterConfirm2 = document.getElementsByClassName("characterConfirm2");
+let correctOrIncorrectLocation = document.getElementById("correctOrIncorrect");
+let dataForTableLocation = document.getElementById("dataForTable")
 let guessAgainMessageLocation = document.getElementById("guessAgainMessage")
 let numberOfGuessesSoFarLocation = document.getElementById("numberOfGuessesSoFar")
+let finalPercentageLocation = document.getElementById("finalPercentage");
+let yodaWisdomLocation = document.getElementById("yodaWisdom");
+
+
+main()
+
+function main() {
+
+//Identify all the page locations where data will be displayed
+
 
 restartButtonLocation.addEventListener("click", restartGame)
 
@@ -60,15 +85,17 @@ inviteFinalClickLocation.style.display="none";
 
 fetch(proxyURL + peopleURL)
 .then(peopleResponse => peopleResponse.json())
-//Pass number of people in array ("jsonResponse.count") into function getAllPeople().
-.then((jsonResponse) => {getAllPeople(jsonResponse.count)})
+//Pass number of people in array ("jsonResponse.count") into function getNumberInPeopleArray().
+.then((jsonResponse) => {getNumberInPeopleArray(jsonResponse.count)})
 .catch(error => console.log(error))
 
-
+}
 //=========================================================================
 //Function to work out how many pages of people data we need to get, and "fetch" one page at a time from https://swapi.co/ 
 
-function getAllPeople(numberOfPeople){
+function getNumberInPeopleArray(numberOfPeople){
+
+
 
     for(let i = 1; i < Math.ceil(numberOfPeople/10)+1 ; i++){
         fetch(proxyURL + peopleURL+"?page="+i)
@@ -83,6 +110,8 @@ function getAllPeople(numberOfPeople){
 
 //Function to use .map() method to populate our peopleArray with just the bits we're interested in (name, homeworld, species)
 function populatePeopleArray (results, numberOfPeople) {
+
+
         
     peopleArray = [...peopleArray.concat(results).map(element => {return {name : element.name, homeworld : element.homeworld, species : element.species}})]
     //When the length of our peopleArray matches the number of records in https://swapi.co/api/people/ we've got all the data
@@ -131,12 +160,6 @@ var percentageCorrect = 0;
 //Function populateCharacterSelect will populate the dropdown select buttons available to the users.
 function populateCharacterSelect(){
 
-//First, select relevant areas of the page, and assign variable name for convenient targetting.
-let characterSelect1 = document.querySelectorAll(".characterSelect")[0];
-let characterSelect2 = document.querySelectorAll(".characterSelect")[1];
-
-let checkButton = document.getElementById("checkButton");
-
 //Populate dropdown selects for fields 1 and 2 with all available character names that we have in 
 //peopleArray, (that we recently got from https://swapi.co/)
 peopleArray.map((element, index) => {
@@ -164,24 +187,6 @@ peopleArray.map((element, index) => {
 
 })
 
-/*
-
-//PETE NOTE THAT innerHTML APPROACH (commented out below) IS NOT SUITABLE HERE. THERE ARE PROBLEMS CAUSED IN 
-//GIVING THE CORRECT ID'S BECAUSE OF THE SPACES WITHIN THE CHARACTER NAMES
-peopleArray.map((element, index) => {
-    
-    let nameData = element.name.replace(/ /g, "%20");
-    let newOption1 = "<option id = "+nameData.replace(/%20/g," ")+" value ="+(index+1)+" >"+element.name+"</option>"
-
-    //Working example of ${} notation below.
-    let newOption2 = `<option value=${index+1} id=${element.name}>${element.name}</option>`
-
-    characterSelect1.innerHTML += newOption1;
-    characterSelect2.innerHTML += newOption2;
-
-})
-
-*/
 
 //Now that we've finished populating the select drop-downs, hide the "loading message" and display the drop-downs
 
@@ -190,7 +195,7 @@ dropDownContainerLocation.style.display="flex";
 checkButtonLocation.style.display="block";
 
 //Add event listeners to our button, and nominate function to call upon button click.
-checkButton.addEventListener("click", checkSelected);
+checkButtonLocation.addEventListener("click", checkSelected);
 
 }
 
@@ -238,15 +243,9 @@ function checkSelected() {
 //============================================================================================================================================
 //Function to confirm onscreen the guess that the user made
 function confirmSelection(inputName1, inputName2) {
-
-    //let confirmSelection = document.getElementById("confirmSelection");
-    let characterConfirm1 = document.getElementsByClassName("characterConfirm1");
-    let characterConfirm2 = document.getElementsByClassName("characterConfirm2");
-     
+   
     characterConfirm1[0].textContent = inputName1;
     characterConfirm2[0].textContent = inputName2;
-
-
 
     //Now call the function that's going to find the homeworld details.
     getHomeWorld(inputName1, inputName2)
@@ -259,8 +258,6 @@ function confirmSelection(inputName1, inputName2) {
 function getHomeWorld(inputName1, inputName2) {
 
     //Variables for areas of page================================
-    let characterConfirm1 = document.getElementsByClassName("characterConfirm1");
-    let characterConfirm2 = document.getElementsByClassName("characterConfirm2");
 
     characterConfirm1[1].textContent = inputName1;
     characterConfirm2[1].textContent = inputName2;
@@ -294,9 +291,6 @@ async function getHomeWorldNames(homeWorld1URL, homeWorld2URL) {
 //Function to add homeword names to screen display, and unhide so user can see.
 function showGuess (homeWorldName1var, homeWorldName2var) {
 
-    let homeWorldName1 = document.getElementById("homeWorldName1")
-    let homeWorldName2 = document.getElementById("homeWorldName2")
-    let numberOfGuesses = document.getElementById("numberOfGuesses")
 
     countOfGuesses += 1;
     numberOfGuesses.textContent = countOfGuesses;
@@ -313,9 +307,7 @@ function showGuess (homeWorldName1var, homeWorldName2var) {
 
 function fillTable(homeWorldName1var, homeWorldName2var) {
 
-    let resultsTable = document.getElementById("resultsTable")
-    let correctOrIncorrectLocation = document.getElementById("correctOrIncorrect");
-    let dataForTableLocation = document.getElementById("dataForTable")
+    
 
     let resultSentence = dataForTableLocation.innerHTML
     let result =""
@@ -332,10 +324,10 @@ function fillTable(homeWorldName1var, homeWorldName2var) {
     percentageCorrect = Math.round((correctGuesses / countOfGuesses) *100).toFixed(2)
     
     let newTableEntry = "<tr><td>"+countOfGuesses+"</td><td>"+resultSentence+"</td><td>"+result+"</td><td>"+percentageCorrect+"<span>%</span></td></tr>"
-    resultsTable.innerHTML += newTableEntry;
+    resultsTableBodyLocation.innerHTML += newTableEntry;
 
     giveResultLocation.style.display="block";
-    resultsTableLocation.style.display="block";
+    resultsTableLocation.style.display="table";
 
     if(countOfGuesses === 5) {
 
@@ -383,8 +375,6 @@ function displayFinalRating() {
 
     finalPercentageCorrect = Math.round((correctGuesses / countOfGuesses) *100).toFixed(2)
 
-    let finalPercentageLocation = document.getElementById("finalPercentage");
-    let yodaWisdomLocation = document.getElementById("yodaWisdom");
 
     finalPercentageLocation.innerHTML = finalPercentageCorrect;
 
@@ -413,9 +403,13 @@ function displayFinalRating() {
 //============================================================================================================================================
 function restartGame() {
 
-
+    countOfGuesses = 0;
+    correctGuesses = 0;
+    percentageCorrect = 0;
     characterSelect1.selectedIndex = 0;
     characterSelect2.selectedIndex = 0;
+
+
     loadingWaitMessage1Location.style.display="block";
     loadingWaitMessage2Location.style.display="none";
     dropDownContainerLocation.style.display="none";``
@@ -430,8 +424,6 @@ function restartGame() {
     inviteFinalClickLocation.style.display="none";
 
     clearResultsTable()
-
-    populateCharacterSelect()
     
 }
 
@@ -441,15 +433,19 @@ function restartGame() {
 //============================================================================================================================================
 function clearResultsTable(){
 
+        let emptyTable = document.createElement("tr")
+        resultsTableBodyLocation.replaceWith(emptyTable);
+        populateCharacterSelect();
 
 }
-
-
 
 
 //============================================================================================================================================
 //============================================================================================================================================//============================================================================================================================================
 //============================================================================================================================================
+
+
+
 //============================================================================================================================================
 //============================================================================================================================================//============================================================================================================================================
 //============================================================================================================================================

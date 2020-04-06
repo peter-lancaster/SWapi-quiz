@@ -6,11 +6,9 @@
 </head>
 <body>
   
-
 <h1>Star Wars quiz - which characters have the same homeworld?</h1> 
 <span>Try this Star-Wars related quiz!  &ensp; It took hours to create, and is literally seconds of fun!</span>
-<span>Select the Star Wars characters that have the same homeworld.</span>
-<span>You get 5 guesses in total, with your success percentage AND wisdom from Master Yoda given at the end.</span>
+<span>Select two Star Wars characters that you think have the same homeworld.You get 5 guesses in total, with your success percentage AND wisdom from Master Yoda given at the end.</span>
 <div id="loadingWaitMessage1">
 <span class="blinkingRed largeBoldText">Please wait - loading character data from <a class="blinkingRed" href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
 </div>
@@ -36,7 +34,7 @@
   <button class="button" id="checkButton">Click here to see if your guess is correct</button>
 
 
-<button class="button" id="finalRatingButton">Click here to get your final rating</button>
+
 
 <div id="invalidChoice" class="blinkingGrey">
   <span>Please choose a valid Star Wars character from BOTH drop-down boxes above</span>
@@ -71,10 +69,11 @@
 <div id="inviteFinalClick">
   <span>You've now had all 5 guesses.</span>
   <br/>
-  <span>Click the button above to receive your final percentage and Master Yoda's wisdom.</span>
+  <span>Click the button below to receive your final percentage and Master Yoda's wisdom.</span>
 </div>
-
-
+<br/>
+<button class="button" id="finalRatingButton">Click here to get your final rating</button>
+<br/>
 <div id="finalRating">
   <span>Your final percentage of guesses correct was </span>
   <br/>
@@ -89,15 +88,19 @@
   <br/>
   <span>All data sourced from <a href="https://swapi.co/" target=blank>https://swapi.co/</a></span>
   <br/>
-  <span>(they have patreon if you feel like giving them some cash</span>
+  <span>(they have patreon if you feel like giving them some cash)</span>
 </div>
 
 <table id="resultsTable" class="tableContainer">
   <tr>
+    <thead>
     <th>Guess number</th>
     <th>Character and their homeworld</th>
     <th>Same homeworld?</th>
     <th>Percentage of guesses correct</th>
+  </thead>
+  <tbody id="resultsTableBody">
+  </tbody>
   </tr>
 </table>
 
